@@ -10,12 +10,14 @@
 	</parent>
 	<groupId>com.nttdata.microservice.eureka</groupId>
 	<artifactId>discovery-server</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<name>eureka-server</name>
 	<description>Project for Eureka-Server</description>
 	<properties>
 		<java.version>11</java.version>
 		<spring-cloud.version>2021.0.3</spring-cloud.version>
+		<jib-maven-plugin.image>eclipse-temurin:11.0.15_10-jre-alpine</jib-maven-plugin.image>
+        <jib-maven-plugin.architecture>amd64</jib-maven-plugin.architecture>        
 	</properties>
 	<dependencies>
 		<dependency>
@@ -91,7 +93,13 @@
 				</dependencies>
 				<configuration>
 					<from>
-						<image>adoptopenjdk/openjdk11:jre-11.0.6_10-alpine</image>
+						<image>${jib-maven-plugin.image}</image>
+                        <platforms>
+                            <platform>
+                                <architecture>${jib-maven-plugin.architecture}</architecture>
+                                <os>linux</os>
+                            </platform>
+                        </platforms>
 					</from>
 					<to>
 						<image>${project.artifactId}</image>
@@ -100,10 +108,9 @@
 						</tags>
 					</to>
 					<container>
-						<environment>
-							<EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE>http://localhost:8761/eureka</EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE>
+						<environment>							
 							<HOSTNAME>localhost</HOSTNAME>
-							<DISCOVERY_PORT>8761</DISCOVERY_PORT>
+							<PORT>8761</PORT>
 						</environment>
 						<creationTime>USE_CURRENT_TIMESTAMP</creationTime>
 					</container>
