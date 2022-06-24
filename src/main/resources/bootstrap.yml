@@ -1,23 +1,17 @@
-# PUERTO POR DEFECTO
 server:
-  port: 8761
-  
-# NOMBRE DE LA APLICACION
+  port: ${DISCOVERY_PORT:8761}
+
 spring:
   application:
     name: discovery-service
-    
-# CONFIGURACION DE EUREKA
+
 eureka:
-# DEFINIR LA IP HOSTNAME 
   instance:
-    hostname: localhost
-# DESACTIVAR REGISTRO COMO CLIENTE    
+    hostname: ${HOSTNAME:localhost}
   client:
     register-with-eureka: false
     fetch-registry: false
-# URL DEFECTO SERVIDOR EUREKA
     service-url:
-      defaultZone: http://localhost:8761/eureka    
+      defaultZone: ${EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE:http://localhost:8761/eureka}
       
     
